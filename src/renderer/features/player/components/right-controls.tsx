@@ -590,6 +590,12 @@ const VolumeButton = () => {
         <>
             <ContextMenu>
                 <ContextMenu.Target>
+                    {/*
+                     * ActionIcon renders a Mantine Tooltip wrapper, which does not
+                     * forward the onContextMenu/ref that Radix injects via asChild to
+                     * the underlying button. Wrap in a real DOM node so right-click
+                     * reliably opens the menu.
+                     */}
                     <div style={{ alignItems: 'center', display: 'flex' }}>
                         <ActionIcon
                             icon={muted ? 'volumeMute' : volume > 50 ? 'volumeMax' : 'volumeNormal'}
@@ -612,7 +618,6 @@ const VolumeButton = () => {
                     </div>
                 </ContextMenu.Target>
                 <ContextMenu.Content>
-                    <ContextMenu.Label>{t('setting.audioDevice')}</ContextMenu.Label>
                     <ContextMenu.Item
                         isSelected={!currentAudioDeviceId}
                         onSelect={() => handleSelectAudioDevice(null)}
